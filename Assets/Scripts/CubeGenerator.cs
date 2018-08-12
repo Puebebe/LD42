@@ -15,6 +15,18 @@ public class CubeGenerator : MonoBehaviour
     GameObject[,,] cubes;
     bool[,,] usedCubes;
 
+    int numberOfCubes;
+
+    public int NumberOfCubes
+    {
+        get
+        {
+            return boxWidth * boxHeight * boxLength;
+        }
+    }
+
+    //public int boxWidth { get; }
+
 
     // Use this for initialization
     void Start ()
@@ -29,7 +41,7 @@ public class CubeGenerator : MonoBehaviour
                 for (int k = 0; k < boxLength; k++)
                 {
                     cubes[i, j, k] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    cubes[i, j, k].transform.SetParent(GameObject.Find("Shapes").transform);
+                    cubes[i, j, k].transform.SetParent(transform);
                     cubes[i, j, k].transform.localPosition = new Vector3(i, j, k);
                 }
             }
@@ -67,8 +79,8 @@ public class CubeGenerator : MonoBehaviour
     {
         GameObject shape = new GameObject();
         shape.name = "Shape";
-        shape.transform.SetParent(GameObject.Find("Shapes").transform);
-        shape.transform.localPosition = Vector3.zero;
+        shape.transform.SetParent(transform);
+        shape.transform.localPosition = firstCube;
         Color color = Random.ColorHSV(0, 1);
         shape.AddComponent<Rigidbody>();
         shape.AddComponent<MouseDrag>();
@@ -163,9 +175,4 @@ public class CubeGenerator : MonoBehaviour
                 return null;
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
