@@ -11,10 +11,10 @@ public class StackAreaRender : MonoBehaviour {
 
 		Vector3 Scale = GameObject.Find("Shapes").GetComponent<CubeGenerator>().Dimensions;
 		SolidArea.transform.SetParent(gameObject.transform);
-		transform.localScale = new Vector3 (Scale.x*2, 5, Scale.z*2);
-		transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y -2.5f, transform.localPosition.z);
-
-
+		transform.localScale = new Vector3 (Scale.x*2, 10, Scale.z*2);
+		transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y -5f, transform.localPosition.z);
+		Color color = Random.ColorHSV(0, 1);
+		gameObject.transform.GetChild(0).GetComponent<Renderer>().material.color = color;
 
 
 	}
