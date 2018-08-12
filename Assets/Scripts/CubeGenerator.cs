@@ -69,8 +69,9 @@ public class CubeGenerator : MonoBehaviour
         shape.name = "Shape";
         shape.transform.SetParent(GameObject.Find("Shapes").transform);
         shape.transform.localPosition = Vector3.zero;
-
         Color color = Random.ColorHSV(0, 1);
+        shape.AddComponent<Rigidbody>();
+        shape.AddComponent<MouseDrag>();
 
         int x = (int)firstCube.x;
         int y = (int)firstCube.y;
