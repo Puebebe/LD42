@@ -29,7 +29,8 @@ public class CubeGenerator : MonoBehaviour
                 for (int k = 0; k < boxLength; k++)
                 {
                     cubes[i, j, k] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    cubes[i, j, k].transform.position = new Vector3(i, j, k);
+                    cubes[i, j, k].transform.SetParent(GameObject.Find("Shapes").transform);
+                    cubes[i, j, k].transform.localPosition = new Vector3(i, j, k);
                 }
             }
         }
@@ -65,6 +66,11 @@ public class CubeGenerator : MonoBehaviour
     GameObject generateShape(Vector3 firstCube)
     {
         GameObject shape = new GameObject();
+        shape.name = "Shape";
+        shape.transform.SetParent(GameObject.Find("Shapes").transform);
+        shape.transform.localPosition = Vector3.zero;
+
+        Color color = Random.ColorHSV(0, 1);
 
         int x = (int)firstCube.x;
         int y = (int)firstCube.y;
@@ -89,6 +95,11 @@ public class CubeGenerator : MonoBehaviour
             usedCubes[x, y, z] = true;
             cubes[x, y, z].transform.SetParent(shape.transform);
         }
+
+        var renderers = shape.GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
+            renderer.material.color = color;
+        
 
         return shape;
     }
