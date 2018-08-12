@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class TriggerAreaBehaviour : MonoBehaviour
 {
-
     int goalCubes;
     int actualCubes = 0;
 
     // Use this for initialization
     void Start()
     {
-
         goalCubes = GameObject.Find("Shapes").GetComponent<CubeGenerator>().NumberOfCubes;
         BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
         boxCollider.isTrigger = true;
@@ -19,9 +17,6 @@ public class TriggerAreaBehaviour : MonoBehaviour
         Vector3 Scale = GameObject.Find("Shapes").GetComponent<CubeGenerator>().Dimensions;
         transform.localScale = Scale;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.x + Scale.y / 2, transform.localPosition.z);
-
-
-
     }
 
     void OnTriggerEnter(Collider other)
