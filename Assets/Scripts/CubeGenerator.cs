@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CubeGenerator : MonoBehaviour
 {
+    [SerializeField]
     int boxWidth = 3;
+    [SerializeField]
     int boxHeight = 3;
+    [SerializeField]
     int boxLength = 3;
     int min = 3;
     int max = 5;
@@ -68,7 +71,6 @@ public class CubeGenerator : MonoBehaviour
         int z = (int)firstCube.z;
 
         usedCubes[x, y, z] = true;
-        Debug.Log("first" + x + y + z);
         cubes[x, y, z].transform.SetParent(shape.transform);
 
         int cubesInShape = Random.Range(min, max + 1);
@@ -85,7 +87,6 @@ public class CubeGenerator : MonoBehaviour
             z = (int)cords.Value.z;
 
             usedCubes[x, y, z] = true;
-            Debug.Log("next" + x + y + z);
             cubes[x, y, z].transform.SetParent(shape.transform);
         }
 
