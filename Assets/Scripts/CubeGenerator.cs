@@ -25,7 +25,13 @@ public class CubeGenerator : MonoBehaviour
         }
     }
 
-    //public int boxWidth { get; }
+    public Vector3 Dimensions
+    {
+        get
+        {
+            return new Vector3(boxWidth, boxHeight, boxLength);
+        }
+    }
 
 
     // Use this for initialization
