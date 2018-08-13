@@ -79,7 +79,8 @@ public class MouseDrag : MonoBehaviour
     {
         isGrabbed = false;
         rb.useGravity = true;
-        rb.freezeRotation = false;
+        //rb.freezeRotation = false;
+        rb.freezeRotation = !Parameters.parameterRotation;
         currentSensitivity = sensitivity;
         //Cursor.lockState = CursorLockMode.None;
     }

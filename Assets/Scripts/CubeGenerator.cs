@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class CubeGenerator : MonoBehaviour
 {
-    [SerializeField]
-    int boxWidth = 3;
-    [SerializeField]
-    int boxHeight = 3;
-    [SerializeField]
-    int boxLength = 3;
+    int boxWidth = (int)Parameters.parameterSize.x;
+    int boxHeight = (int)Parameters.parameterSize.y;
+    int boxLength = (int)Parameters.parameterSize.z;
     int min = 3;
     int max = 5;
     GameObject[,,] cubes;
@@ -62,6 +59,9 @@ public class CubeGenerator : MonoBehaviour
             Shapes.Add(generateShape(nextUnusedCube.Value));
             nextUnusedCube = getNext();
         }
+
+        //transform.rotation = Quaternion.Euler(Random.Range(10, 80), Random.Range(10, 80), Random.Range(10, 80));
+        transform.position = new Vector3(Random.Range(-10, 10), 10, Random.Range(-10, 10));
     }
 
     Vector3? getNext()
@@ -90,6 +90,7 @@ public class CubeGenerator : MonoBehaviour
         Color color = Random.ColorHSV(0, 1);
         shape.AddComponent<Rigidbody>();
         shape.AddComponent<MouseDrag>();
+        shape.GetComponent<Rigidbody>().freezeRotation = !Parameters.parameterRotation;
 
         int x = (int)firstCube.x;
         int y = (int)firstCube.y;

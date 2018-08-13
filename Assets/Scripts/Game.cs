@@ -85,8 +85,7 @@ public class Game : MonoBehaviour
 
     public void LoadGameplaySettings()
     {
-        //SceneManager.LoadScene("GameplaySettings");
-        SceneManager.LoadScene("EnviroScene");
+        SceneManager.LoadScene("GameplaySettings");
         StartGame();
     }
 
@@ -123,6 +122,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-
+        if (Input.GetKey(KeyCode.Escape))
+            LoadMenu();
 	}
 }
