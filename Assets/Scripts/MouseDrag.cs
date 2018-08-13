@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseDrag : MonoBehaviour
 {
-
+    bool isGrabbed = false;
     float distance = 10f;
     int multiplier = 1;
 
@@ -26,6 +26,8 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDrag()
     {
+        isGrabbed = true;
+
         if (Input.GetMouseButton(1))
         {
             //Cursor.lockState = CursorLockMode.Locked;
@@ -74,6 +76,7 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseUp()
     {
+        isGrabbed = false;
         rb.useGravity = true;
         rb.freezeRotation = false;
         currentSensitivity = sensitivity;
@@ -97,17 +100,21 @@ public class MouseDrag : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
-            multiplier = 1;
-        else
-            multiplier = 5;
-
-        distance += Input.GetAxis("Mouse ScrollWheel") * multiplier;
-
-        if (Input.GetMouseButtonUp(1))
+        if (isGrabbed)
         {
-            currentSensitivity = 1;
-            StartCoroutine("SensitivityLerp");
+            if (Input.GetKey(KeyCode.LeftControl))
+                multiplier = 1;
+            else
+                multiplier = 5;
+
+        
+            distance += Input.GetAxis("Mouse ScrollWheel") * multiplier;
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                currentSensitivity = 1;
+                StartCoroutine("SensitivityLerp");
+            }
         }
     }
 }

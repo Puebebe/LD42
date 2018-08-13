@@ -1023,9 +1023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095465f645a671f488dc74d12ce6c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxWidth: 2
-  boxHeight: 2
-  boxLength: 2
+  boxWidth: 3
+  boxHeight: 3
+  boxLength: 3
 --- !u!1 &1268318771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1134,7 @@ GameObject:
   - component: {fileID: 1491352902}
   - component: {fileID: 1491352901}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

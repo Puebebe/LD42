@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    Vector3 startPosition;
-    Quaternion startRotation;
+    float maxDistance = 40;
+    float minDistance = 5;
+    //Vector3 startPosition;
+    //Quaternion startRotation;
 
     // Use this for initialization
     void Start()
     {
-        startPosition = Camera.main.transform.position;
-        startRotation = Camera.main.transform.rotation;
+        //startPosition = Camera.main.transform.position;
+        //startRotation = Camera.main.transform.rotation;
     }
 
     // Update is called once per frame
@@ -35,15 +37,22 @@ public class CameraRotation : MonoBehaviour
         }
 
 
-        Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, transform.position, Wheel);
+        //Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, transform.position, Wheel);
+        Vector3 newCameraPosition = Vector3.MoveTowards(Camera.main.transform.position, transform.position, Wheel);
 
+        if (Vector3.Distance(newCameraPosition, transform.position) < maxDistance && Vector3.Distance(newCameraPosition, transform.position) > minDistance)
+            Camera.main.transform.position = newCameraPosition;
+
+        /*
         if (Vector3.Distance(Camera.main.transform.position, transform.position) > 40)
-            Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, transform.position, 3);
+            Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, transform.position, 3f);
 
-        if (Vector3.Distance(Camera.main.transform.position, transform.position) == 0)
+        if (Vector3.Distance(Camera.main.transform.position, transform.position) < 5)
         {
-            Camera.main.transform.position = startPosition;
-            Camera.main.transform.rotation = startRotation;
+            Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, Camera.main.transform.forward, -0.1f);
+            //Camera.main.transform.position = startPosition;
+            //Camera.main.transform.rotation = startRotation;
         }
+        */
     }
 }
