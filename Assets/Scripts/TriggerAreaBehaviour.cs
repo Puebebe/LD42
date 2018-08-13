@@ -6,6 +6,8 @@ public class TriggerAreaBehaviour : MonoBehaviour
 {
     int goalCubes;
     int actualCubes = 0;
+    bool particlesEnabled = false;
+    float delay = 0;
 
     // Use this for initialization
     void Start()
@@ -26,7 +28,15 @@ public class TriggerAreaBehaviour : MonoBehaviour
         
         actualCubes++;
         if (actualCubes == goalCubes)
+        {
             Debug.Log("Win Faggot!");
+
+            var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
+            foreach (var particle in particles)
+                particle.Play();
+
+            particlesEnabled = true;
+        }
 
         Debug.Log(actualCubes + "/" + goalCubes);
     }
@@ -40,6 +50,22 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
         Debug.Log(actualCubes + "/" + goalCubes);
     }
-    
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (particlesEnabled)
+        {
+            delay -= Time.deltaTime;
+            Debug.Log(delay);
+
+            if (delay <= 0)
+            {
+                var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
+                foreach (var particle in particles)
+                    particle.startColor = Random.ColorHSV(0, 1);
+                delay = 2;
+            }
+        }
+    }
 }
