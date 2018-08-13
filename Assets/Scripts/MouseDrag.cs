@@ -5,7 +5,8 @@ using UnityEngine;
 public class MouseDrag : MonoBehaviour
 {
     bool isGrabbed = false;
-    float distance = 10f;
+    public float distance = 22f;
+    float maxDistance = 30f;
     int multiplier = 1;
 
     int sensitivity = 10;
@@ -107,8 +108,10 @@ public class MouseDrag : MonoBehaviour
             else
                 multiplier = 5;
 
-        
-            distance += Input.GetAxis("Mouse ScrollWheel") * multiplier;
+            float distanceChange = Input.GetAxis("Mouse ScrollWheel") * multiplier;
+
+            if (distanceChange < 0 || distance + distanceChange < maxDistance)
+                distance += distanceChange;
 
             if (Input.GetMouseButtonUp(1))
             {

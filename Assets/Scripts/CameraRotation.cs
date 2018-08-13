@@ -28,8 +28,19 @@ public class CameraRotation : MonoBehaviour
         }
 
         Vector3 newCameraPosition = Vector3.MoveTowards(Camera.main.transform.position, transform.position, Wheel);
+        float newDistance = Vector3.Distance(newCameraPosition, transform.position);
 
-        if (Vector3.Distance(newCameraPosition, transform.position) < maxDistance && Vector3.Distance(newCameraPosition, transform.position) > minDistance)
+        if (newDistance < maxDistance && newDistance > minDistance)
+        {
+            float distanceDifference = newDistance - Vector3.Distance(Camera.main.transform.position, transform.position);
             Camera.main.transform.position = newCameraPosition;
+
+            var shapes = GameObject.Find("Shapes").GetComponentsInChildren<MouseDrag>();
+
+            foreach (var shape in shapes)
+            {
+                shape.distance += distanceDifference;
+            }
+        }
     }
 }
