@@ -36,6 +36,9 @@ public class TriggerAreaBehaviour : MonoBehaviour
                 particle.Play();
 
             particlesEnabled = true;
+
+
+            StartCoroutine("WinGame");
         }
 
         Debug.Log(actualCubes + "/" + goalCubes);
@@ -51,13 +54,19 @@ public class TriggerAreaBehaviour : MonoBehaviour
         Debug.Log(actualCubes + "/" + goalCubes);
     }
 
+    IEnumerator WinGame()
+    {
+        yield return new WaitForSeconds(5);
+        Game.ShowWinScreen();
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (particlesEnabled)
         {
             delay -= Time.deltaTime;
-            Debug.Log(delay);
+            //Debug.Log(delay);
 
             if (delay <= 0)
             {
