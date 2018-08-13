@@ -38,7 +38,12 @@ public class MouseDrag : MonoBehaviour
             float v = verticalSpeed * vInput;
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
-                transform.rotation = Quaternion.identity;
+            {
+                //transform.rotation = Quaternion.identity;
+                //Vector3 newRotation = new Vector3(Mathf.Round(transform.eulerAngles.x / 90) * 90, Mathf.Round(transform.eulerAngles.y / 90) * 90, Mathf.Round(transform.eulerAngles.z / 90) * 90);
+                //transform.rotation = Quaternion.Euler(newRotation);
+                //transform.rotation = transform.rotation.AlignToRightAngles();
+            }
 
             if (Input.GetKey(KeyCode.LeftControl))
             {
@@ -46,29 +51,23 @@ public class MouseDrag : MonoBehaviour
 
                 if (rotationDelay <= 0)
                 {
+                    transform.rotation = transform.rotation.AlignToRightAngles();
+
                     if (vInput > 0.5 || vInput < -0.5)
                     {
                         transform.Rotate(Vector3.right, 90 * Mathf.Sign(vInput));
-                        //v += 90 * Mathf.Sign(v);
-                        //v = (int)(v / 90);
-                        //v *= 90;
-                        //h = 0;
 
                         rotationDelay = 0.2f;
                     }
                     if (hInput > 0.5 || hInput < -0.5)
                     {
                         transform.Rotate(Vector3.up, 90 * Mathf.Sign(hInput));
-                        //h += 90 * Mathf.Sign(h);
-                        //h = (int)(h / 90);
-                        //h *= 90;
-                        //v = 0;
 
                         rotationDelay = 0.2f;
                     }
                 }
-
-                Debug.Log("vInput=" + vInput + "hInput=" + hInput);
+                
+                //Debug.Log("vInput=" + vInput + " hInput=" + hInput);
                 //transform.localRotation = Quaternion.Euler(v, h, 0);
                 //transform.rotation = Quaternion.identity;
                 //transform.Rotate(v, h, 0, Space.Self);
