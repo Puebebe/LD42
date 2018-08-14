@@ -75,6 +75,11 @@ public class MouseDrag : MonoBehaviour
         }
     }
 
+    private void OnMouseDown()
+    {
+        rb.isKinematic = false;
+    }
+
     void OnMouseUp()
     {
         isGrabbed = false;
@@ -118,6 +123,11 @@ public class MouseDrag : MonoBehaviour
             {
                 currentSensitivity = 1;
                 StartCoroutine("SensitivityLerp");
+            }
+
+            if (Input.GetMouseButton(2) || Input.GetButton("Jump"))
+            {
+                rb.isKinematic = true;
             }
         }
     }
