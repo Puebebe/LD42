@@ -6,66 +6,26 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    static GameObject loseScreen;
     static GameObject winScreen;
     static GameObject menu;
     static GameObject credits;
-    static GameObject potatoPrefab;
 
-    private static int highscore = 0;
-    private static int score = 0;
-    public static int Score
+    private static float startTime;
+    private static int winScreenDelay = 5;
+
+    public static int WinScreenDelay
     {
         get
         {
-            return score;
+            return winScreenDelay;
         }
-
-        set
-        {
-            score = value;
-            GameObject.Find("Score").GetComponent<Text>().text = "Potatoes in the air: " + score;
-            if (score > highscore)
-                highscore = score;
-            if (score == 0)
-                ShowLoseScreen();
-        }
-    }
-
-    private static int losingMashedPotatoes = 3;
-    private static int mashedPotatoes = 0;
-    public static int MashedPotatoes
-    {
-        get
-        {
-            return mashedPotatoes;
-        }
-
-        set
-        {
-            mashedPotatoes = value;
-            GameObject.Find("PotatoesAlive").GetComponent<Image>().fillAmount = (float)(losingMashedPotatoes - mashedPotatoes) / losingMashedPotatoes;
-            if (mashedPotatoes == losingMashedPotatoes)
-                ShowLoseScreen();
-        }
-    }
-
-    public static void CreatePotato()
-    {
-        Instantiate(potatoPrefab);
-    }
-
-    public static void ShowLoseScreen()
-    {
-        Time.timeScale = 0;
-        loseScreen.SetActive(true);
-        GameObject.Find("Highscore").GetComponent<Text>().text += highscore;
     }
 
     public static void ShowWinScreen()
     {
         Time.timeScale = 0;
         winScreen.SetActive(true);
+        GameObject.Find("Time").GetComponent<Text>().text += (int)(Time.time - startTime) - WinScreenDelay + " sec.";
     }
 
     public void RestartGame()
@@ -115,7 +75,10 @@ public class Game : MonoBehaviour
         credits = GameObject.Find("Credits");
 
         if (SceneManager.GetActiveScene().name == "Gameplay")
+        {
             winScreen.SetActive(false);
+            startTime = Time.time;
+        }
     }
 
     // Update is called once per frame

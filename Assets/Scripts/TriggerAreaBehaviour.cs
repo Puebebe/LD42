@@ -56,7 +56,7 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
     IEnumerator WinGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(Game.WinScreenDelay);
         Game.ShowWinScreen();
     }
 
