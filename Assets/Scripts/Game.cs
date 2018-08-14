@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     static GameObject winScreen;
     static GameObject menu;
     static GameObject credits;
+    static GameObject helpScreen;
 
     private static float startTime;
     private static int winScreenDelay = 5;
@@ -56,6 +57,11 @@ public class Game : MonoBehaviour
         credits.SetActive(true);
     }
 
+    public static void ShowHelpScreen(bool state)
+    {
+        helpScreen.SetActive(state);
+    }
+
     public void QuitCredits()
     {
         menu.SetActive(true);
@@ -73,10 +79,12 @@ public class Game : MonoBehaviour
         winScreen = GameObject.Find("WinScreen");
         menu = GameObject.Find("Menu");
         credits = GameObject.Find("Credits");
+        helpScreen = GameObject.Find("HelpScreen");
 
         if (SceneManager.GetActiveScene().name == "Gameplay")
         {
             winScreen.SetActive(false);
+            helpScreen.SetActive(false);
             startTime = Time.time;
         }
     }

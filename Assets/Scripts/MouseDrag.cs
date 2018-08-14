@@ -130,5 +130,11 @@ public class MouseDrag : MonoBehaviour
                 rb.isKinematic = true;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            Game.ShowHelpScreen(true);
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+            Game.ShowHelpScreen(false);
     }
 }
