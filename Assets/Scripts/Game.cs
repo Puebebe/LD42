@@ -66,20 +66,16 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         winScreen.SetActive(true);
-        //GameObject.Find("Highscore").GetComponent<Text>().text += highscore;
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("EnviroScene");
+        SceneManager.LoadScene("Gameplay");
         StartGame();
     }
+
     void StartGame()
     {
-        //Score = 0;
-        //highscore = 0;
-        //MashedPotatoes = 0;
-
         Time.timeScale = 1;
     }
 
@@ -100,29 +96,32 @@ public class Game : MonoBehaviour
         credits.SetActive(true);
     }
 
+    public void QuitCredits()
+    {
+        menu.SetActive(true);
+        credits.SetActive(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        //potatoPrefab = (GameObject)Resources.Load("Potato");
-        //loseScreen = GameObject.Find("LoseScreen");
         winScreen = GameObject.Find("WinScreen");
         menu = GameObject.Find("Menu");
         credits = GameObject.Find("Credits");
 
-        //loseScreen.SetActive(false);
-        if (SceneManager.GetActiveScene().name == "EnviroScene")
+        if (SceneManager.GetActiveScene().name == "Gameplay")
             winScreen.SetActive(false);
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (Input.GetKey(KeyCode.Escape))
             LoadMenu();
-	}
+    }
 }
