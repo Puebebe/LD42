@@ -39,7 +39,8 @@ public class CameraRotation : MonoBehaviour
 
             foreach (var shape in shapes)
             {
-                shape.distance += distanceDifference;
+                if (shape.distance + distanceDifference > minDistance)
+                    shape.distance += distanceDifference;  
             }
         }
     }

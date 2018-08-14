@@ -6,6 +6,7 @@ public class MouseDrag : MonoBehaviour
 {
     bool isGrabbed = false;
     public float distance = 22f;
+    float minDistance = 5f;
     float maxDistance = 30f;
     int multiplier = 1;
 
@@ -115,9 +116,13 @@ public class MouseDrag : MonoBehaviour
                 multiplier = 5;
 
             float distanceChange = Input.GetAxis("Mouse ScrollWheel") * multiplier;
+            float newDistance = distance + distanceChange;
 
-            if (distanceChange < 0 || distance + distanceChange < maxDistance)
+            if ((distanceChange < 0 && newDistance > minDistance) || (distanceChange > 0 && newDistance < maxDistance))
+            {
                 distance += distanceChange;
+                //Debug.Log(distance);
+            }
 
             if (Input.GetMouseButtonUp(1))
             {
