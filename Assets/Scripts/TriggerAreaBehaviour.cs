@@ -57,7 +57,6 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
         actualCubes--;
         ChangeAreaColor();
-        Debug.Log((float)actualCubes / goalCubes);
 
         //Debug.Log(actualCubes + "/" + goalCubes);
     }

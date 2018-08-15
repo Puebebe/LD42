@@ -32,6 +32,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            //Debug.Log(Camera.main.transform.position);
             //Cursor.lockState = CursorLockMode.Locked;
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
@@ -40,6 +41,33 @@ public class PlayerInput : MonoBehaviour
             float vInput = Input.GetAxis("Mouse Y");
             float h = horizontalSpeed * hInput;
             float v = verticalSpeed * vInput;
+            Vector3 horizontalAxis = Vector3.zero;
+            Vector3 verticalAxis = Vector3.zero;
+            Vector3 cameraPos = Camera.main.transform.position;
+            float x = cameraPos.x;
+            float z = cameraPos.z;
+
+            if (x > z && x + z < 0)
+            {
+                horizontalAxis = Vector3.back;
+                verticalAxis = Vector3.right;
+            }
+            else if (x < z && x + z < 0)
+            {
+                horizontalAxis = Vector3.left;
+                verticalAxis = Vector3.back;
+            }
+            else if (x < z && x + z > 0)
+            {
+                horizontalAxis = Vector3.forward;
+                verticalAxis = Vector3.left;
+            }
+            else if (x > z && x + z > 0)
+            {
+                horizontalAxis = Vector3.right;
+                verticalAxis = Vector3.forward;
+            }
+
 
             if (Input.GetKey(KeyCode.LeftControl))
             {
@@ -51,20 +79,26 @@ public class PlayerInput : MonoBehaviour
 
                     if (vInput > 0.5 || vInput < -0.5)
                     {
-                        transform.Rotate(Vector3.right, 90 * Mathf.Sign(vInput));
+                        transform.Rotate(verticalAxis, 90 * Mathf.Sign(vInput), Space.World);
 
                         rotationDelay = 0.2f;
                     }
                     if (hInput > 0.5 || hInput < -0.5)
                     {
-                        transform.Rotate(Vector3.up, 90 * Mathf.Sign(hInput));
+                        //transform.Rotate(Camera.main.transform.position - transform.position, 90 * Mathf.Sign(hInput), Space.World);
+                        //Vector3 direction = new Vector3(Camera.main.transform.position.x - transform.position.x, transform.position.y, Camera.main.transform.position.z - transform.position.z);
+                        //transform.Rotate(direction, 90 * Mathf.Sign(hInput), Space.World);
+                        transform.Rotate(horizontalAxis, 90 * Mathf.Sign(hInput), Space.World);
 
                         rotationDelay = 0.2f;
                     }
                 }
             }
             else
-                transform.Rotate(new Vector3(v, h, 0), Space.World);
+            {
+                transform.Rotate(verticalAxis, v, Space.World);
+                transform.Rotate(horizontalAxis, h, Space.World);
+            }
         }
         else
         {
