@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseDrag : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     bool isGrabbed = false;
     public float distance = 22f;

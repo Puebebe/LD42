@@ -9,7 +9,7 @@ public class StackAreaRender : MonoBehaviour {
 
 		GameObject SolidArea = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-		Vector3 Scale = GameObject.Find("Shapes").GetComponent<CubeGenerator>().Dimensions;
+		Vector3 Scale = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().Dimensions;
 		SolidArea.transform.SetParent(gameObject.transform);
 		transform.localScale = new Vector3 (Scale.x*2, 10, Scale.z*2);
 		transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y -5f, transform.localPosition.z);

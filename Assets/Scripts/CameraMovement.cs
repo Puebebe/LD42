@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRotation : MonoBehaviour
+public class CameraMovement : MonoBehaviour
 {
     float maxDistance = 40;
     float minDistance = 5;
@@ -35,7 +35,7 @@ public class CameraRotation : MonoBehaviour
             float distanceDifference = newDistance - Vector3.Distance(Camera.main.transform.position, transform.position);
             Camera.main.transform.position = newCameraPosition;
 
-            var shapes = GameObject.Find("Shapes").GetComponentsInChildren<MouseDrag>();
+            var shapes = GameObject.Find("Shapes").GetComponentsInChildren<PlayerInput>();
 
             foreach (var shape in shapes)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeGenerator : MonoBehaviour
+public class ShapeGenerator : MonoBehaviour
 {
     int boxWidth = (int)Parameters.parameterSize.x;
     int boxHeight = (int)Parameters.parameterSize.y;
@@ -89,7 +89,7 @@ public class CubeGenerator : MonoBehaviour
         shape.transform.localPosition = firstCube;
         Color color = Random.ColorHSV(0, 1);
         shape.AddComponent<Rigidbody>();
-        shape.AddComponent<MouseDrag>();
+        shape.AddComponent<PlayerInput>();
         shape.GetComponent<Rigidbody>().freezeRotation = !Parameters.parameterRotation;
 
         int x = (int)firstCube.x;

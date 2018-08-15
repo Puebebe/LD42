@@ -12,11 +12,11 @@ public class TriggerAreaBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        goalCubes = GameObject.Find("Shapes").GetComponent<CubeGenerator>().NumberOfCubes;
+        goalCubes = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().NumberOfCubes;
         BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
         boxCollider.isTrigger = true;
 
-        Vector3 Scale = GameObject.Find("Shapes").GetComponent<CubeGenerator>().Dimensions;
+        Vector3 Scale = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().Dimensions;
         transform.localScale = Scale;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.x + Scale.y / 2, transform.localPosition.z);
     }
