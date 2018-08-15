@@ -21,12 +21,21 @@ public class TriggerAreaBehaviour : MonoBehaviour
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.x + Scale.y / 2, transform.localPosition.z);
     }
 
+    void ChangeAreaColor()  //from red to green
+    {
+        float value = (float)actualCubes / goalCubes;
+        Color targetColor = new Color(Mathf.Clamp01(2f - value * 2), Mathf.Clamp01(value * 2), 0, 0.25f);
+        GetComponent<Renderer>().material.color = targetColor;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name != "Cube")
             return;
         
         actualCubes++;
+        ChangeAreaColor();
+
         if (actualCubes == goalCubes)
         {
             var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
@@ -47,6 +56,8 @@ public class TriggerAreaBehaviour : MonoBehaviour
             return;
 
         actualCubes--;
+        ChangeAreaColor();
+        Debug.Log((float)actualCubes / goalCubes);
 
         //Debug.Log(actualCubes + "/" + goalCubes);
     }
