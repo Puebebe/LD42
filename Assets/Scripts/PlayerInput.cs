@@ -32,7 +32,6 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            //Debug.Log(Camera.main.transform.position);
             //Cursor.lockState = CursorLockMode.Locked;
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
@@ -85,9 +84,6 @@ public class PlayerInput : MonoBehaviour
                     }
                     if (hInput > 0.5 || hInput < -0.5)
                     {
-                        //transform.Rotate(Camera.main.transform.position - transform.position, 90 * Mathf.Sign(hInput), Space.World);
-                        //Vector3 direction = new Vector3(Camera.main.transform.position.x - transform.position.x, transform.position.y, Camera.main.transform.position.z - transform.position.z);
-                        //transform.Rotate(direction, 90 * Mathf.Sign(hInput), Space.World);
                         transform.Rotate(horizontalAxis, 90 * Mathf.Sign(hInput), Space.World);
 
                         rotationDelay = 0.2f;
