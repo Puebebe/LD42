@@ -17,16 +17,15 @@ public class GameStart : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Escape))
             SceneManager.LoadScene("Menu");
+    }
+
+    public void UpdateLabel(string name)
+    {
+        GameObject.Find(name + "Label").GetComponent<Text>().text = name + " = " + GameObject.Find(name).GetComponent<Slider>().value;
     }
 }

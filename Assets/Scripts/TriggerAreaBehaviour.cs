@@ -29,19 +29,16 @@ public class TriggerAreaBehaviour : MonoBehaviour
         actualCubes++;
         if (actualCubes == goalCubes)
         {
-            Debug.Log("Win Faggot!");
-
             var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
             foreach (var particle in particles)
                 particle.Play();
 
             particlesEnabled = true;
 
-
             StartCoroutine("WinGame");
         }
 
-        Debug.Log(actualCubes + "/" + goalCubes);
+        //Debug.Log(actualCubes + "/" + goalCubes);
     }
 
     void OnTriggerExit(Collider other)
@@ -51,7 +48,7 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
         actualCubes--;
 
-        Debug.Log(actualCubes + "/" + goalCubes);
+        //Debug.Log(actualCubes + "/" + goalCubes);
     }
 
     IEnumerator WinGame()
