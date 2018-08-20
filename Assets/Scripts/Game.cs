@@ -12,13 +12,18 @@ public class Game : MonoBehaviour
     static GameObject helpScreen;
 
     private static float startTime;
-    private static int winScreenDelay = 5;
+    private static float winScreenDelay;
 
-    public static int WinScreenDelay
+    public static float WinScreenDelay
     {
         get
         {
             return winScreenDelay;
+        }
+
+        set
+        {
+            winScreenDelay = value;
         }
     }
 
@@ -26,7 +31,7 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         winScreen.SetActive(true);
-        GameObject.Find("Time").GetComponent<Text>().text += (int)(Time.time - startTime) - WinScreenDelay + " sec.";
+        GameObject.Find("Time").GetComponent<Text>().text += (int)(Time.time - startTime - WinScreenDelay) + " sec.";
     }
 
     public void RestartGame()
@@ -86,6 +91,7 @@ public class Game : MonoBehaviour
             winScreen.SetActive(false);
             helpScreen.SetActive(false);
             startTime = Time.time;
+            winScreenDelay = 5;
         }
     }
 

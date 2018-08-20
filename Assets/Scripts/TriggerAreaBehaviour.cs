@@ -63,7 +63,17 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
     IEnumerator WinGame()
     {
-        yield return new WaitForSeconds(Game.WinScreenDelay);
+        float t = 0;
+        while (t < Game.WinScreenDelay)
+        {
+            t += Time.unscaledDeltaTime;
+
+            if (Input.GetMouseButtonDown(0))
+                Game.WinScreenDelay = t;
+
+            yield return null;
+        }
+        
         Game.ShowWinScreen();
     }
 
