@@ -13,7 +13,7 @@ public class GameStart : MonoBehaviour
         Parameters.parameterSize.z = GameObject.Find("Length").GetComponent<Slider>().value;
         Parameters.parameterRotation = GameObject.Find("Rotation").GetComponent<Toggle>().isOn;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         SceneManager.LoadScene("Gameplay");
     }
 

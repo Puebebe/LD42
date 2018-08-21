@@ -31,24 +31,28 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         winScreen.SetActive(true);
-        GameObject.Find("Time").GetComponent<Text>().text += (int)(Time.time - startTime - WinScreenDelay) + " sec.";
+        var time = GameObject.Find("Time");
+        if (time != null)
+            time.GetComponent<Text>().text += (int)(Time.time - startTime - WinScreenDelay) + " sec.";
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene("Gameplay");
-        StartGame();
+        Time.timeScale = 1;
     }
 
-    void StartGame()
+    public void StartTutorial()
     {
-        Time.timeScale = 1;
+        Parameters.parameterSize = new Vector3(1, 1, 1);
+        Parameters.parameterRotation = true;
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void LoadGameplaySettings()
     {
         SceneManager.LoadScene("GameplaySettings");
-        StartGame();
+        Time.timeScale = 1;
     }
 
     public void LoadMenu()
@@ -86,7 +90,7 @@ public class Game : MonoBehaviour
         credits = GameObject.Find("Credits");
         helpScreen = GameObject.Find("HelpScreen");
 
-        if (SceneManager.GetActiveScene().name == "Gameplay")
+        if (SceneManager.GetActiveScene().name == "Gameplay" || SceneManager.GetActiveScene().name == "Tutorial")
         {
             winScreen.SetActive(false);
             helpScreen.SetActive(false);
