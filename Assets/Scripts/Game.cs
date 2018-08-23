@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     static GameObject credits;
     static GameObject helpScreen;
 
+    private static int lesson;
     private static float startTime;
     private static float winScreenDelay;
 
@@ -41,12 +42,41 @@ public class Game : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
         Time.timeScale = 1;
     }
-
+    /*
     public void StartTutorial()
     {
         Parameters.parameterSize = new Vector3(1, 1, 1);
         Parameters.parameterRotation = true;
         SceneManager.LoadScene("Tutorial");
+    }
+    */
+    public void StartTutorial()
+    {
+        string nextScene = "Tutorial";
+        lesson++;
+        Vector3 size = Vector3.one;
+
+        switch (lesson)
+        {
+            case 1:
+                size = new Vector3(1, 1, 1);
+                break;
+            case 2:
+                size = new Vector3(2, 1, 1);
+                break;
+            case 3:
+                size = new Vector3(2, 2, 2);
+                break;
+            default:
+                nextScene = "Menu";
+                //GameObject.Find("Next").GetComponentInChildren<Text>().text = "Main menu";
+                break;
+        }
+
+        Parameters.parameterSize = size;
+        Parameters.parameterRotation = true;
+        SceneManager.LoadScene(nextScene);
+        Time.timeScale = 1;
     }
 
     public void LoadGameplaySettings()
