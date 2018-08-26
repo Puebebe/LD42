@@ -1,11 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
     bool isGrabbed = false;
-    Vector3 grabOffset = Vector3.zero;
+    GameObject handle;
     public float distance = 22f;
     float minDistance = 5f;
     float maxDistance = 30f;
@@ -14,14 +14,17 @@ public class PlayerInput : MonoBehaviour
     int sensitivity = 10;
     float currentSensitivity;
 
-    float horizontalSpeed = 2f;
-    float verticalSpeed = 2f;
+    float horizontalSpeed = 4f;
+    float verticalSpeed = 4f;
     float rotationDelay = 0.2f;
 
     Rigidbody rb;
 
     void Start()
     {
+        handle = new GameObject("Handle");
+        handle.transform.SetParent(transform);
+        handle.transform.position = transform.position;
         Cursor.lockState = CursorLockMode.Confined;
         currentSensitivity = sensitivity;
         rb = GetComponent<Rigidbody>();
@@ -79,13 +82,13 @@ public class PlayerInput : MonoBehaviour
 
                     if (vInput > 0.5 || vInput < -0.5)
                     {
-                        transform.Rotate(verticalAxis, 90 * Mathf.Sign(vInput), Space.World);
+                        transform.RotateAround(handle.transform.position, verticalAxis, 90 * Mathf.Sign(vInput));
 
                         rotationDelay = 0.2f;
                     }
                     if (hInput > 0.5 || hInput < -0.5)
                     {
-                        transform.Rotate(horizontalAxis, 90 * Mathf.Sign(hInput), Space.World);
+                        transform.RotateAround(handle.transform.position, horizontalAxis, 90 * Mathf.Sign(hInput));
 
                         rotationDelay = 0.2f;
                     }
@@ -93,8 +96,8 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                transform.Rotate(verticalAxis, v, Space.World);
-                transform.Rotate(horizontalAxis, h, Space.World);
+                transform.RotateAround(handle.transform.position, verticalAxis, v);
+                transform.RotateAround(handle.transform.position, horizontalAxis, h);
             }
         }
         else
@@ -103,10 +106,7 @@ public class PlayerInput : MonoBehaviour
             Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             Vector3 destination = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            if (!Parameters.parameterRotation)
-                rb.velocity = (destination - grabOffset - transform.position) * currentSensitivity;
-            else
-                rb.velocity = (destination - transform.position) * currentSensitivity;
+            rb.velocity = (destination - handle.transform.position) * currentSensitivity;
         }
     }
 
@@ -114,37 +114,29 @@ public class PlayerInput : MonoBehaviour
     {
         rb.isKinematic = false;
 
-        grabOffset = FindGrabOffset();
+        Transform grabbedCube = FindGrabbedCube();
+        handle.transform.SetPositionAndRotation(grabbedCube.position, grabbedCube.rotation);
     }
 
-    Vector3 FindGrabOffset()
+    Transform FindGrabbedCube()
     {
+        Transform grabbedCube = transform;
         Vector3 nearestCube = transform.position;
-        Vector3 searchedOffset = Vector3.zero;
         var cubes = GetComponentInChildren<Transform>();
 
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 destination = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        Debug.Log("destination" + destination);
-
         foreach (Transform cube in cubes)
         {
-            Debug.Log("cube.localPosition" + cube.localPosition);
-            Debug.Log("cube.position" + cube.position);
-            Debug.Log("Distance(cube.position, destination) = " + Vector3.Distance(cube.position, destination));
-            Debug.Log("Distance(nearestCube, destination) = " + Vector3.Distance(nearestCube, destination));
-            if (Vector3.Distance(cube.position, destination) < Vector3.Distance(nearestCube, destination))
+            if (Vector3.Distance(cube.position, destination) <= Vector3.Distance(nearestCube, destination))
             {
                 nearestCube = cube.position;
-                searchedOffset = cube.localPosition;
+                grabbedCube = cube;
             }
         }
 
-        Debug.Log("nearestCube = " + nearestCube + ", transform.position = " + transform.position);
-        Debug.Log("Searched offset = " + searchedOffset);
-
-        return searchedOffset;
+        return grabbedCube;
     }
 
     void OnMouseUp()
