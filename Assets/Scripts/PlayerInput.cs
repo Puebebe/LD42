@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
     bool isGrabbed = false;
+    Vector3 grabOffset = Vector3.zero;
     public float distance = 22f;
     float minDistance = 5f;
     float maxDistance = 30f;
@@ -102,13 +103,48 @@ public class PlayerInput : MonoBehaviour
             Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             Vector3 destination = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            rb.velocity = (destination - transform.position) * currentSensitivity;
+            if (!Parameters.parameterRotation)
+                rb.velocity = (destination - grabOffset - transform.position) * currentSensitivity;
+            else
+                rb.velocity = (destination - transform.position) * currentSensitivity;
         }
     }
 
-    private void OnMouseDown()
+    void OnMouseDown()
     {
         rb.isKinematic = false;
+
+        grabOffset = FindGrabOffset();
+    }
+
+    Vector3 FindGrabOffset()
+    {
+        Vector3 nearestCube = transform.position;
+        Vector3 searchedOffset = Vector3.zero;
+        var cubes = GetComponentInChildren<Transform>();
+
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+        Vector3 destination = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        Debug.Log("destination" + destination);
+
+        foreach (Transform cube in cubes)
+        {
+            Debug.Log("cube.localPosition" + cube.localPosition);
+            Debug.Log("cube.position" + cube.position);
+            Debug.Log("Distance(cube.position, destination) = " + Vector3.Distance(cube.position, destination));
+            Debug.Log("Distance(nearestCube, destination) = " + Vector3.Distance(nearestCube, destination));
+            if (Vector3.Distance(cube.position, destination) < Vector3.Distance(nearestCube, destination))
+            {
+                nearestCube = cube.position;
+                searchedOffset = cube.localPosition;
+            }
+        }
+
+        Debug.Log("nearestCube = " + nearestCube + ", transform.position = " + transform.position);
+        Debug.Log("Searched offset = " + searchedOffset);
+
+        return searchedOffset;
     }
 
     void OnMouseUp()
