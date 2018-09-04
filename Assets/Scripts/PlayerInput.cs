@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
             //Cursor.lockState = CursorLockMode.Locked;
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
-            rb.freezeRotation = true;
+            rb.angularVelocity = Vector3.zero;
             float hInput = Input.GetAxis("Mouse X");
             float vInput = Input.GetAxis("Mouse Y");
             float h = horizontalSpeed * hInput;
@@ -170,7 +170,11 @@ public class PlayerInput : MonoBehaviour
         if (isGrabbed)
         {
             if (Input.GetKey(KeyCode.LeftControl))
+            {
                 multiplier = 1;
+                rb.angularVelocity = Vector3.zero;
+                transform.rotation = transform.rotation.AlignToRightAngles();
+            }
             else
                 multiplier = 5;
 
@@ -189,7 +193,7 @@ public class PlayerInput : MonoBehaviour
                 StartCoroutine("SensitivityLerp");
             }
 
-            if (Input.GetMouseButton(2) || Input.GetButton("Jump"))
+            if (Input.GetButton("Jump") || Input.GetMouseButton(2))
             {
                 rb.isKinematic = true;
             }
