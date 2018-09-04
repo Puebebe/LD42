@@ -38,6 +38,12 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
         if (actualCubes == goalCubes)
         {
+            if (Game.ObjectivesAllDone() == false)
+            {
+                Debug.LogWarning("Fake win");
+                return;
+            }
+
             var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
             foreach (var particle in particles)
                 particle.Play();

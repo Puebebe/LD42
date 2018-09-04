@@ -28,6 +28,19 @@ public class Game : MonoBehaviour
         }
     }
 
+    public static Dictionary<string, bool> Objectives;
+
+    public static bool ObjectivesAllDone()
+    {
+        foreach (bool done in Objectives.Values)
+        {
+            if (!done)
+                return false;
+        }
+
+        return true;
+    }
+
     public static void ShowWinScreen()
     {
         Time.timeScale = 0;
@@ -69,6 +82,7 @@ public class Game : MonoBehaviour
                 break;
             default:
                 nextScene = "Menu";
+                lesson = 0;
                 //GameObject.Find("Next").GetComponentInChildren<Text>().text = "Main menu";
                 break;
         }
@@ -88,6 +102,7 @@ public class Game : MonoBehaviour
     public void LoadMenu()
     {
         SceneManager.LoadScene("Menu");
+        lesson = 0;
     }
 
     public void LoadCredits()
@@ -127,12 +142,17 @@ public class Game : MonoBehaviour
             startTime = Time.time;
             winScreenDelay = 5;
         }
+
+        Objectives = new Dictionary<string, bool>(10);
+        Objectives.Add("Grab", false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
             LoadMenu();
+        if (Input.GetKeyDown(KeyCode.R))
+            RestartGame();
     }
 }

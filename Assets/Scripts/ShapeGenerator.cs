@@ -12,8 +12,6 @@ public class ShapeGenerator : MonoBehaviour
     GameObject[,,] cubes;
     bool[,,] usedCubes;
 
-    int numberOfCubes;
-
     public int NumberOfCubes
     {
         get
@@ -60,8 +58,25 @@ public class ShapeGenerator : MonoBehaviour
             nextUnusedCube = getNext();
         }
 
-        //transform.rotation = Quaternion.Euler(Random.Range(10, 80), Random.Range(10, 80), Random.Range(10, 80));
-        transform.position = new Vector3(Random.Range(-10, 10), 10, Random.Range(-10, 10));
+        transform.position = new Vector3(transform.position.x - boxWidth / 2f + 0.5f, transform.position.y, transform.position.z - boxLength / 2f + 0.5f);
+
+        foreach (var shape in Shapes)
+        {
+            float force = Mathf.Sqrt(NumberOfCubes) / 2;
+            float x = Random.Range(-force, force);
+            float y = Random.Range(-force, force);
+            float z = Random.Range(-force, force);
+            Vector3 v = new Vector3(x, y, z);
+
+            if (Shapes.Count == 1)
+            {
+                v.Set(x, 0, -Mathf.Abs(z));
+                v.Normalize();
+                v.Scale(new Vector3(boxWidth, boxHeight, boxLength));
+            }
+
+            shape.GetComponent<Rigidbody>().velocity = v;
+        }
     }
 
     Vector3? getNext()

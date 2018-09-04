@@ -33,6 +33,7 @@ public class PlayerInput : MonoBehaviour
     void OnMouseDrag()
     {
         isGrabbed = true;
+        Game.Objectives["Grab"] = true;
 
         if (Input.GetMouseButton(1))
         {
