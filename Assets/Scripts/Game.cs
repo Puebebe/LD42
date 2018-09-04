@@ -48,6 +48,16 @@ public class Game : MonoBehaviour
         var time = GameObject.Find("Time");
         if (time != null)
             time.GetComponent<Text>().text += (int)(Time.time - startTime - WinScreenDelay) + " sec.";
+
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            winScreen.GetComponentInChildren<Text>().text = "Lesson Nº " + lesson + " completed!";
+
+            if (lesson == 4)
+            {
+                GameObject.Find("Next").GetComponentInChildren<Text>().text = "Main menu";
+            }
+        }
     }
 
     public void RestartGame()
@@ -80,10 +90,12 @@ public class Game : MonoBehaviour
             case 3:
                 size = new Vector3(2, 2, 2);
                 break;
+            case 4:
+                size = new Vector3(3, 3, 3);
+                break;
             default:
                 nextScene = "Menu";
                 lesson = 0;
-                //GameObject.Find("Next").GetComponentInChildren<Text>().text = "Main menu";
                 break;
         }
 

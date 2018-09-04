@@ -15263,7 +15263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -175}
-  m_SizeDelta: {x: 1320, y: 640}
+  m_SizeDelta: {x: 1500, y: 640}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &983621985
 MonoBehaviour:
@@ -15297,9 +15297,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Left Mouse Button: Blocks grabbing\r\nRight Mouse Button: Blocks rotating\nSpace:
-    Blocks freezing\r\nMouse ScrollWheel: Blocks positioning\nA, D: Camera movement\r\nLeft
-    Control: Precise positioning\r\nEscape: Return to menu\nTab: Displaying controls"
+  m_Text: "Left Mouse Button: Blocks grabbing\r\nLMB + Right Mouse Button: Blocks
+    rotating\nSpace: Blocks freezing\r\nMouse ScrollWheel: Blocks positioning\nA,
+    D: Camera movement\r\nLeft Control: Precise positioning\r\nEscape: Return to menu\nTab:
+    Displaying controls"
 --- !u!222 &983621986
 CanvasRenderer:
   m_ObjectHideFlags: 0
