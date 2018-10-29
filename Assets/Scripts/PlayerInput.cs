@@ -32,6 +32,9 @@ public class PlayerInput : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (Game.IsOver)
+            return;
+
         isGrabbed = true;
         Game.Objectives["Grab"] = true;
 
@@ -79,7 +82,7 @@ public class PlayerInput : MonoBehaviour
 
                 if (rotationDelay <= 0)
                 {
-                    transform.rotation = transform.rotation.AlignToRightAngles();
+                    //transform.rotation = transform.rotation.AlignToRightAngles();
 
                     if (vInput > 0.5 || vInput < -0.5)
                     {
@@ -167,6 +170,9 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        if (Game.IsOver)
+            return;
+
         if (isGrabbed)
         {
             if (Input.GetKey(KeyCode.LeftControl))

@@ -20,8 +20,15 @@ public class GameStart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene("Menu");
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameObject.Find("Height").GetComponent<Slider>().value = Parameters.parameterSize.y;
+            GameObject.Find("Width").GetComponent<Slider>().value = Parameters.parameterSize.x;
+            GameObject.Find("Length").GetComponent<Slider>().value = Parameters.parameterSize.z;
+            GameObject.Find("Rotation").GetComponent<Toggle>().isOn = Parameters.parameterRotation;
+        }
     }
 
     public void UpdateLabel(string name)

@@ -28,6 +28,16 @@ public class Game : MonoBehaviour
         }
     }
 
+    private static bool isOver;
+
+    public static bool IsOver
+    {
+        get
+        {
+            return isOver;
+        }
+    }
+
     public static Dictionary<string, bool> Objectives;
 
     public static bool ObjectivesAllDone()
@@ -44,6 +54,7 @@ public class Game : MonoBehaviour
     public static void ShowWinScreen()
     {
         Time.timeScale = 0;
+        Game.isOver = true;
         winScreen.SetActive(true);
         var time = GameObject.Find("Time");
         if (time != null)
@@ -142,6 +153,7 @@ public class Game : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Game.isOver = false;
         winScreen = GameObject.Find("WinScreen");
         menu = GameObject.Find("Menu");
         credits = GameObject.Find("Credits");
@@ -162,9 +174,17 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            LoadMenu();
-        if (Input.GetKeyDown(KeyCode.R))
-            RestartGame();
+        if (Input.anyKeyDown)
+        {
+            if (SceneManager.GetActiveScene().name == "Menu")
+                return;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                LoadMenu();
+            else if (Input.GetKeyDown(KeyCode.R))
+                RestartGame();
+            else if (Input.GetKey(KeyCode.Semicolon) && Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.Alpha1) && !Game.IsOver)
+                ShowWinScreen();
+        }
     }
 }
