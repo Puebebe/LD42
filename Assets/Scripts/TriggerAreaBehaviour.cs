@@ -20,6 +20,8 @@ public class TriggerAreaBehaviour : MonoBehaviour
         Vector3 Scale = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().Dimensions;
         transform.localScale = Scale;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.x + Scale.y / 2, transform.localPosition.z);
+
+        boxCollider.size -= new Vector3(1 / Scale.x, 1 / Scale.y, 1 / Scale.z);
     }
 
     void ChangeAreaColor()  //from red to green
