@@ -8,6 +8,7 @@ public class TriggerAreaBehaviour : MonoBehaviour
     int actualCubes = 0;
     bool particlesEnabled = false;
     float delay = 0;
+    bool winAnnounced = false;
 
     // Use this for initialization
     void Start()
@@ -44,13 +45,18 @@ public class TriggerAreaBehaviour : MonoBehaviour
                 return;
             }
 
-            var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
-            foreach (var particle in particles)
-                particle.Play();
+            if (!winAnnounced)
+            {
+                winAnnounced = true;
 
-            particlesEnabled = true;
+                var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
+                foreach (var particle in particles)
+                    particle.Play();
 
-            StartCoroutine("WinGame");
+                particlesEnabled = true;
+
+                StartCoroutine("WinGame");
+            }
         }
 
         //Debug.Log(actualCubes + "/" + goalCubes);
