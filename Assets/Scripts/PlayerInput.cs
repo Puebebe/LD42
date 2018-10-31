@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     bool isGrabbed = false;
+    bool isFreezed = false;
     GameObject handle;
     public float distance = 22f;
     float minDistance = 5f;
@@ -32,7 +33,7 @@ public class PlayerInput : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (Game.IsOver)
+        if (isFreezed || Game.IsOver)
             return;
 
         isGrabbed = true;
@@ -117,6 +118,7 @@ public class PlayerInput : MonoBehaviour
     void OnMouseDown()
     {
         rb.isKinematic = false;
+        isFreezed = false;
 
         Transform grabbedCube = FindGrabbedCube();
         handle.transform.SetPositionAndRotation(grabbedCube.position, grabbedCube.rotation);
@@ -170,7 +172,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (Game.IsOver)
+        if (isFreezed || Game.IsOver)
             return;
 
         if (isGrabbed)
@@ -202,6 +204,7 @@ public class PlayerInput : MonoBehaviour
             if (Input.GetButton("Jump") || Input.GetMouseButton(2))
             {
                 rb.isKinematic = true;
+                isFreezed = true;
             }
         }
 
