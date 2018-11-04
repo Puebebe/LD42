@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ShapeGenerator : MonoBehaviour
 {
-    int boxWidth = (int)Parameters.parameterSize.x;
-    int boxHeight = (int)Parameters.parameterSize.y;
-    int boxLength = (int)Parameters.parameterSize.z;
+    static int boxWidth;
+    static int boxHeight;
+    static int boxLength;
     int min = 3;
     int max = 5;
     GameObject[,,] cubes;
     bool[,,] usedCubes;
 
-    public int NumberOfCubes
+    public static int NumberOfCubes
     {
         get
         {
@@ -20,7 +20,7 @@ public class ShapeGenerator : MonoBehaviour
         }
     }
 
-    public Vector3 Dimensions
+    public static Vector3 Dimensions
     {
         get
         {
@@ -30,8 +30,11 @@ public class ShapeGenerator : MonoBehaviour
 
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
+        boxWidth = (int)Parameters.parameterSize.x;
+        boxHeight = (int)Parameters.parameterSize.y;
+        boxLength = (int)Parameters.parameterSize.z;
         cubes = new GameObject[boxWidth, boxHeight, boxLength];
         usedCubes = new bool[boxWidth, boxHeight, boxLength];
 
@@ -60,9 +63,10 @@ public class ShapeGenerator : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x - boxWidth / 2f + 0.5f, transform.position.y, transform.position.z - boxLength / 2f + 0.5f);
 
+        float force = Mathf.Sqrt(NumberOfCubes) / 2;
+
         foreach (var shape in Shapes)
         {
-            float force = Mathf.Sqrt(NumberOfCubes) / 2;
             float x = Random.Range(-force, force);
             float y = Random.Range(-force, force);
             float z = Random.Range(-force, force);

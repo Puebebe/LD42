@@ -35,7 +35,7 @@ public class CameraMovement : MonoBehaviour
             float distanceDifference = newDistance - Vector3.Distance(Camera.main.transform.position, transform.position);
             Camera.main.transform.position = newCameraPosition;
 
-            var shapes = GameObject.Find("Shapes").GetComponentsInChildren<PlayerInput>();
+            var shapes = GameObject.Find("/Shapes").GetComponentsInChildren<PlayerInput>();
 
             foreach (var shape in shapes)
             {

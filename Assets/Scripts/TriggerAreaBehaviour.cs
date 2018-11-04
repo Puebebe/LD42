@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +13,11 @@ public class TriggerAreaBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        goalCubes = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().NumberOfCubes;
+        goalCubes = ShapeGenerator.NumberOfCubes;
         BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
         boxCollider.isTrigger = true;
 
-        Vector3 Scale = GameObject.Find("Shapes").GetComponent<ShapeGenerator>().Dimensions;
+        Vector3 Scale = ShapeGenerator.Dimensions;
         transform.localScale = Scale;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.x + Scale.y / 2, transform.localPosition.z);
 
@@ -51,7 +51,7 @@ public class TriggerAreaBehaviour : MonoBehaviour
             {
                 winAnnounced = true;
 
-                var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
+                var particles = GameObject.Find("/Particles").GetComponentsInChildren<ParticleSystem>();
                 foreach (var particle in particles)
                     particle.Play();
 
@@ -101,7 +101,7 @@ public class TriggerAreaBehaviour : MonoBehaviour
 
             if (delay <= 0)
             {
-                var particles = GameObject.Find("Particles").GetComponentsInChildren<ParticleSystem>();
+                var particles = GameObject.Find("/Particles").GetComponentsInChildren<ParticleSystem>();
                 foreach (var particle in particles)
                     particle.startColor = Random.ColorHSV(0, 1);
                 delay = 2;

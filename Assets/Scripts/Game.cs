@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     static GameObject helpScreen;
 
     private static int lesson;
+    private const int NUMBER_OF_LESSONS = 4;
     private static float startTime;
     private static float winScreenDelay;
 
@@ -64,7 +65,7 @@ public class Game : MonoBehaviour
         {
             winScreen.GetComponentInChildren<Text>().text = "Lesson Nº " + lesson + " completed!";
 
-            if (lesson == 4)
+            if (lesson == NUMBER_OF_LESSONS)
             {
                 GameObject.Find("Next").GetComponentInChildren<Text>().text = "Main menu";
             }
