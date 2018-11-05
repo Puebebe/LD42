@@ -39,6 +39,14 @@ public class Game : MonoBehaviour
         }
     }
 
+    public static int Lesson
+    {
+        get
+        {
+            return lesson;
+        }
+    }
+
     public static Dictionary<string, bool> Objectives;
 
     public static bool ObjectivesAllDone()
@@ -93,6 +101,9 @@ public class Game : MonoBehaviour
 
         switch (lesson)
         {
+            case 0:
+                size = new Vector3(1, 1, 1);
+                break;
             case 1:
                 size = new Vector3(1, 1, 1);
                 break;

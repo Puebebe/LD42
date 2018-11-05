@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMovement : MonoBehaviour
 {
     float maxDistance = 40;
     float minDistance = 5;
+
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "Tutorial" && Game.Lesson == 0)
+            Camera.main.transform.position += new Vector3(0, 0, 1.5f);
+    }
 
     // Update is called once per frame
     void Update()
