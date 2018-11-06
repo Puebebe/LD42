@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Tutorial" && Game.Lesson == 0)
+        if (SceneManager.GetActiveScene().name == "Tutorial" && Game.Lesson == 1)
             Camera.main.transform.position += new Vector3(0, 0, 1.5f);
     }
 

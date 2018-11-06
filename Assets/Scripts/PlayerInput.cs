@@ -191,6 +191,9 @@ public class PlayerInput : MonoBehaviour
 
             if ((distanceChange < 0 && newDistance > minDistance) || (distanceChange > 0 && newDistance < maxDistance))
             {
+                if (Game.Objectives.ContainsKey("DistanceBlock"))
+                    Game.Objectives["DistanceBlock"] = true;
+
                 distance += distanceChange;
                 //Debug.Log(distance);
             }

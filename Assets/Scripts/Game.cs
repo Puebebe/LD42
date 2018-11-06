@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,25 +12,12 @@ public class Game : MonoBehaviour
     static GameObject credits;
     static GameObject helpScreen;
 
+    private static bool isOver;
+    private const int NUMBER_OF_LESSONS = 5;
     private static int lesson;
-    private const int NUMBER_OF_LESSONS = 4;
     private static float startTime;
     private static float winScreenDelay;
-
-    public static float WinScreenDelay
-    {
-        get
-        {
-            return winScreenDelay;
-        }
-
-        set
-        {
-            winScreenDelay = value;
-        }
-    }
-
-    private static bool isOver;
+    public static Dictionary<string, bool> Objectives;
 
     public static bool IsOver
     {
@@ -47,7 +35,18 @@ public class Game : MonoBehaviour
         }
     }
 
-    public static Dictionary<string, bool> Objectives;
+    public static float WinScreenDelay
+    {
+        get
+        {
+            return winScreenDelay;
+        }
+
+        set
+        {
+            winScreenDelay = value;
+        }
+    }
 
     public static bool ObjectivesAllDone()
     {
@@ -82,7 +81,13 @@ public class Game : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        foreach (var key in Objectives.Keys.ToList())
+        {
+            Objectives[key] = false;
+        }
+
+        string activeScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(activeScene);
         Time.timeScale = 1;
     }
     /*
@@ -101,19 +106,20 @@ public class Game : MonoBehaviour
 
         switch (lesson)
         {
-            case 0:
-                size = new Vector3(1, 1, 1);
-                break;
             case 1:
                 size = new Vector3(1, 1, 1);
                 break;
             case 2:
-                size = new Vector3(2, 1, 1);
+                size = new Vector3(1, 1, 1);
+                Objectives.Add("DistanceBlock", false);
                 break;
             case 3:
-                size = new Vector3(2, 2, 2);
+                size = new Vector3(2, 1, 1);
                 break;
             case 4:
+                size = new Vector3(2, 2, 2);
+                break;
+            case 5:
                 size = new Vector3(3, 3, 3);
                 break;
             default:
@@ -138,6 +144,7 @@ public class Game : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
         lesson = 0;
+        Objectives = new Dictionary<string, bool>();
     }
 
     public void LoadCredits()
@@ -179,8 +186,13 @@ public class Game : MonoBehaviour
             winScreenDelay = 5;
         }
 
-        Objectives = new Dictionary<string, bool>(10);
-        Objectives.Add("Grab", false);
+        if (Objectives == null)
+            Objectives = new Dictionary<string, bool>();
+        else if (ObjectivesAllDone())
+        {
+            Objectives = new Dictionary<string, bool>();
+            Objectives.Add("Grab", false);
+        }
     }
 
     // Update is called once per frame
